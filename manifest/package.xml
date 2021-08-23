@@ -229,4 +229,8 @@
     <name>WorkflowRule</name>
 </types>
 <version>47.0</version>
+<<<<<<< HEAD
 </Package>
+=======
+</Package>
+>>>>>>> 86d082c05cca6a3f838cff18cbe2be87ef9f167b
