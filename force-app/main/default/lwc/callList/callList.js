@@ -16,9 +16,16 @@ import ADDED_TO_CALL_LIST from '@salesforce/schema/Contact.Added_to_Call_List__c
 
 export default class CallList extends LightningElement {
 
+<<<<<<< HEAD
+    columns = new Map();
+    //columns.set('Account',['Name','Org Name','email','phone','Add to list']);
+    headers =['Name','Organization','Email','Phone'];
+    records;
+=======
     value = 'Contact';
     headers =['Name','Organization','Email','Phone'];
     @track records;
+>>>>>>> master
     sortedColumn;
     sortedDirection = 'asc';
     initialRecords;
@@ -160,6 +167,20 @@ export default class CallList extends LightningElement {
 
     handleChange( event ) {
         this.value = event.detail.value;
+<<<<<<< HEAD
+        if(this.value === 'Account'){
+            this.headers = ['Organization Name','Email','Phone'];
+            console.log(this.value);
+            //fetchAccounts;
+        }
+    }
+}
+
+
+
+// export class DatatableWithInlineEdit extends LightningElement {
+=======
+>>>>>>> master
 
         if( this.value === 'Account' ){
             this.headers = ['Organization Name','Email','Phone'];

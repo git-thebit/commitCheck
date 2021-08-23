@@ -25,7 +25,11 @@
                                     <a class="slds-th__action slds-text-link_reset" href="#" role="button" tabindex="-1">
                                         <span class="slds-assistive-text">Sort by: </span>
                                         <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+<<<<<<< HEAD
+                                            <span class="slds-truncate" title="Name">{it.value}</span>
+=======
                                             <span class="slds-truncate" title={it.value}>{it.value}</span>
+>>>>>>> master
                                             <span class="slds-icon_container slds-icon-utility-arrowdown">
                                                 <svg class="slds-icon slds-icon-text-default slds-is-sortable__icon "
                                                     aria-hidden="true">
@@ -71,6 +75,27 @@
                                         </label>
                                     </div>
                                 </td> -->
+<<<<<<< HEAD
+                                <th scope="row" tabindex="0">
+                                    <lightning-formatted-text value={it.value.Name}></lightning-formatted-text>
+                                    <!-- <div class="slds-truncate" title={it.value.Name}>
+                                        <a href="#" tabindex="-1">{it.value.Name}</a>
+                                    </div> -->
+                                </th>
+                                <td role="gridcell">
+                                    <div class="slds-truncate" title={it.value.Account_Name__c}>{it.value.Account_Name__c}</div>
+                                </td>
+                                <td role="gridcell">
+                                    <lightning-formatted-email value={it.value.Email}></lightning-formatted-email>
+                                    <!-- <div class="slds-truncate" title={it.value.Email}>{it.value.Email}</div> -->
+                                </td>
+                                <td role="gridcell">
+                                    <lightning-formatted-phone value={it.value.Phone}></lightning-formatted-phone>
+                                    <!-- <div class="slds-truncate" title={it.value.Phone}>{it.value.Phone}</div> -->
+                                </td>
+                                <td role="gridcell" style="text-align:center;">
+                                    <lightning-button-icon-stateful icon-name="utility:add"></lightning-button-icon-stateful>
+=======
                                 <template if:true={accountSelect}>
                                     <th scope="row" tabindex="0" >
                                         <lightning-formatted-text value={it.value.Name}></lightning-formatted-text>
@@ -93,6 +118,7 @@
                                 <td role="gridcell" style="text-align:center;" class="slds-truncate" id={it.value.Id}>
                                    <lightning-button id={it.value.Id} title="Add to call List" label="Add" icon-name="utility:add" icon-position="right" onclick={addToList} variant="success"></lightning-button>
                                     <!-- <lightning-button-icon-stateful icon-name="utility:add"></lightning-button-icon-stateful> -->
+>>>>>>> master
                                     <!-- <div class="slds-truncate" title={it.value.Type}>{it.value.Type}</div> -->
                                 </td>
                             </tr>
