@@ -1,6 +1,5 @@
 public with sharing class abcd {
     public abcd() {
-            testing;
-        jesting;
+        system.debug('test');
     }
 }
