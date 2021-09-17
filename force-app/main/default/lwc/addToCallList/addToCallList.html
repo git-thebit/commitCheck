@@ -1,0 +1,28 @@
+<template>
+    <!-- <lightning-layout> -->
+            <lightning-card title="Add to Call List" icon-name="standard:product_required">
+                <lightning-layout style="justify-content:space-between;">
+                    <lightning-layout-item size="4" padding="around-medium">
+                        <lightning-combobox name="Type" label="Type" value={value} placeholder="Select Type" options={options}
+                            onchange={handleChange}>
+                        </lightning-combobox>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="4" padding="around-medium">
+                        <lightning-input type="search" label="Search" onchange={handleKeyChange}></lightning-input>
+                    </lightning-layout-item>
+                </lightning-layout>
+                <br />
+                <!-- <lightning-layout-item size="6" padding="around-medium"> -->
+                    <lightning-datatable
+                    key-field="id"
+                    data={data} 
+                    columns={columns}
+                    onrowaction={handleRowAction}
+                    hide-checkbox-column
+                    show-row-number-column
+                    >
+                    </lightning-datatable>
+                <!-- </lightning-layout-item> -->
+            </lightning-card>
+    <!-- </lightning-layout>     -->
+</template>
