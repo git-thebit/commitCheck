@@ -140,7 +140,7 @@ export default class CallList extends LightningElement {
                     
                 }
 
-                console.log( 'Recs are ' + JSON.stringify( recs ) );
+                console.log( 'Recs are tested ' + JSON.stringify( recs ) );
                 this.records = recs;
 
              }
