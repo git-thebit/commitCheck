@@ -1,0 +1,39 @@
+<!--
+    @File Name          : contactDataTable.html
+    @Description        : 
+    @Author             : Amit Singh (SFDCPanther)
+    @Group              : 
+    @Last Modified By   : Amit Singh
+    @Last Modified On   : 12-06-2020
+    @Modification Log   : 
+    Ver       Date            Author      		    Modification
+    1.0    5/28/2020   Amit Singh (SFDCPanther)     Initial Version
+-->
+<template>
+    <lightning-card
+        variant="Narrow"
+        title="Contact Records"
+        icon-name="standard:contact"
+    >
+        <div class="slds-m-around_small">
+            <template if:true={errors}>
+                
+            </template>
+        </div>
+        <div class="slds-m-around_small">
+            <template if:false={errors}>
+                <template if:true={records}>
+                    <c-do-pagination
+                        records={records}
+                        show-table="true"
+                        columns={columns}
+                        recordsperpage="8"
+                        onactions={handleRowActions}
+                        onpagination={handlePagination}
+                    >
+                    </c-do-pagination>
+                </template>
+            </template>
+        </div>
+    </lightning-card>
+</template>
