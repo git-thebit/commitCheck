@@ -14,13 +14,13 @@
                 <br />
                 <!-- <lightning-layout-item size="6" padding="around-medium"> -->
                     <lightning-datatable
-                    key-field="id"
-                    data={data} 
-                    columns={columns}
-                    onrowaction={handleRowAction}
-                    hide-checkbox-column
-                    show-row-number-column
-                    >
+                        key-field="id"
+                        data={data} 
+                        columns={columns}
+                        onrowaction={addToList}
+                        hide-checkbox-column
+                        show-row-number-column
+                        >
                     </lightning-datatable>
                 <!-- </lightning-layout-item> -->
             </lightning-card>
