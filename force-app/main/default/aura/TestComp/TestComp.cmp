@@ -1,0 +1,10 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <label class="slds-form-element__label" style="margin-right: 0.5rem;">Last Name</label>
+    <!--lightning help text for input field-->
+    <lightning:helptext content="Please enter your last name" class="customIcon"/> 
+    <!-- use variant="label-hidden" for hide standard label-->
+    <lightning:input type="text"
+                     name="lName"
+                     label="Last Name"
+                     variant="label-hidden"/>
+</aura:component>

@@ -1,0 +1,133 @@
+<template>
+    <div class="slds-is-relative">
+        <template if:true={showMessage}>
+            <div class="slds-theme_default slds-box slds-align_absolute-center">
+                <template if:true={showSpinner}>
+                    <lightning-spinner variant="brand"></lightning-spinner>
+                </template>
+            </div>
+        </template>
+    </div>
+    <template if:true={errors}>{errors}</template>   
+    <template if:true={enableFieldSearch}>
+            <lightning-layout multiple-rows class="slds-var-m-vertical_x-small slds-var-p-horizontal_small">
+                <lightning-layout-item size="4">
+                    <div class="slds-float_left">
+                            <lightning-combobox
+                                name="progress"
+                                label="Select Field to Search in List"
+                                value={searchFieldVal}
+                                placeholder="Select Field"
+                                options={searchFields}
+                                onchange={handleSearch} ></lightning-combobox>
+                        </div>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="4">
+                        <div class="slds-float_left">
+                            <lightning-input label="Search Value" css="searchVal" onchange={handleSearchChange}>
+                            </lightning-input>
+                        </div>
+                        </lightning-layout-item>
+                </lightning-layout>
+     </template>
+     <template if:true={recordsInPage}>
+        <div  style="overflow: hidden;height:100%">       
+            <div  style="overflow: hidden;height:80%;">
+                <lightning-datatable
+                            key-field="Id"
+                            data={recordsInPage}
+                            columns={columns}
+                            selected-rows={selectedRows}
+                            onrowaction={handleRowAction}
+                            sorted-by={sortBy}
+                            sorted-direction={sortedDirection}
+                            onsort={handleSortdata}
+                            onrowselection={handleRowSelection}
+                            show-row-number-column={hideRowNumber}
+                            hide-checkbox-column={hideCheckBox}
+                            onsave={handleSave}>
+            </lightning-datatable>
+            </div>
+           <template if:true={recordSelected}>
+                 <div style="height:10%;">
+                    <lightning-layout multiple-rows class="slds-var-m-vertical_x-small slds-var-p-horizontal_small">
+                        <lightning-layout-item size="4">
+                        </lightning-layout-item>
+                        <lightning-layout-item size="4">
+                            <div class="slds-align_absolute-center">
+                                <!-- Neutral variant (default) -->
+                                <lightning-button label="Cancel" title="Non-primary action" onclick={handleCancel} class="slds-var-m-left_x-small"></lightning-button>
+            
+                                <!-- Brand variant: Identifies the primary action in a group of buttons -->
+                                <lightning-button variant="brand" label={saveBtnLabel} title="Primary action" onclick={handleSave} class="slds-var-m-left_x-small"></lightning-button>
+                            </div>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="4">
+                        </lightning-layout-item>
+                    </lightning-layout>
+                </div>
+            </template>  
+            <template if:true={showPagination}>
+                <div style="height:10%;">
+                        <lightning-layout multiple-rows class="slds-var-p-vertical_x-small slds-var-p-horizontal_small">
+                            <lightning-layout-item size="4">
+                                <div class="slds-float_left">
+                                    {pageNumberInfo}
+                                </div>
+                            </lightning-layout-item>
+                            <lightning-layout-item size="4">
+                                <div class="slds-align_absolute-center">
+                                    <a onclick={showFirstPage}>
+                                        <lightning-button-icon icon-name="utility:left"
+                                                            size="small"
+                                                            alternative-text="First">
+                                        </lightning-button-icon>
+                                    </a>
+                                    <a onclick={showPreviousPage}>
+                                        <lightning-button-icon icon-name="utility:chevronleft"
+                                                            size="small"
+                                                            alternative-text="Previous">
+                                        </lightning-button-icon>
+                                    </a>
+                                    <a onclick={showNextPage}>
+                                        <lightning-button-icon icon-name="utility:chevronright"
+                                                            size="small"
+                                                            alternative-text="Next">
+                                        </lightning-button-icon>
+                                    </a>
+                                    <a onclick={showLastPage}>
+                                        <lightning-button-icon icon-name="utility:right"
+                                                            size="small"
+                                                            alternative-text="Next">
+                                        </lightning-button-icon>
+                                    </a>
+                                </div>
+                            </lightning-layout-item>
+                            <lightning-layout-item size="4">
+                                <div class="slds-float_right">
+                                    <span>
+                                        {recordsInfo}
+                                    </span>
+                                </div>
+                            </lightning-layout-item>
+                        </lightning-layout>
+                    </div>
+            </template>
+        </div>
+    </template>
+    <template if:false={recordsInPage}>
+       <h4> No Record Found for given criteria.</h4>
+    </template>
+    <template if:true={editable}>
+        <c-common-dialog title={title}>
+            <span slot="body">
+                <lightning-record-form
+                record-id={recordId}
+                object-api-name={objectName}
+                layout-type="Full"
+                mode="view">
+                </lightning-record-form>
+            </span>
+        </c-common-dialog>
+    </template>
+</template>

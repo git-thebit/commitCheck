@@ -1,0 +1,46 @@
+<template>
+	<lightning-card variant="Narrow" title="Close multiple cases" icon-name="standard:case">
+		<lightning-button variant="brand" label="Close" slot="actions" onclick={handleClick}></lightning-button>
+		<div class="slds-p-horizontal_small">
+			<table if:true={_cases} class="slds-table slds-table_cell-buffer slds-table_bordered"
+				aria-label="Wrapper">
+				<thead>
+					<tr class="slds-line-height_reset">
+						<th class="" scope="col">
+							<div class="slds-truncate" title="Case">Case</div>
+						</th>
+						<th class="" scope="col">
+							<div class="slds-truncate" title="Case Number">Case Number</div>
+						</th>
+						<th class="" scope="col">
+							<div class="slds-truncate" title="Subject">Subject</div>
+						</th>
+						<th class="" scope="col">
+							<div class="slds-truncate" title="Status">Status</div>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<template if:true={_cases} for:each={_cases} for:item="caseRec" for:index="index">
+						<tr key={caseRec.caseRecord.Id} class="slds-hint-parent">
+							<th data-label="Opportunity Name" scope="row">
+								<lightning-input type="checkbox" variant="label-hidden" name="isSelected" data-record-id={index} onchange={handleCheckbox}
+									placeholder="type here..." checked={caseRec.caseRecord.isSelected}></lightning-input>
+							</th>
+							<td data-label="Account Name">
+								<div class="slds-truncate" title="CaseNumber">{caseRec.caseRecord.CaseNumber}</div>
+							</td>
+							<td data-label="Close Date">
+								<div class="slds-truncate" title="Subject">{caseRec.caseRecord.Subject}</div>
+							</td>
+							<td data-label="Prospecting">
+								<div class="slds-truncate" title="Status">{caseRec.caseRecord.Status}</div>
+							</td>
+						</tr>
+					</template>
+				</tbody>
+			</table>
+		</div>
+		<p slot="footer">Close Multiple cases at once</p>
+	</lightning-card>
+</template>

@@ -1,0 +1,21 @@
+<aura:component implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+    
+    <aura:attribute name="boooo" type="boolean" default="false"/>
+    
+    <lightning:buttonGroup>
+        
+        <lightning:buttonIcon iconName="utility:email" variant="brand" disabled="{!v.boooo}" onclick="{! c.handleClick }" alternativeText="Click to send Email" />
+        
+        <lightning:button variant="brand" title="Brand action" disabled="{!v.boooo}" onclick="{! c.handleClick }" >
+            Disable me!
+            <aura:if isTrue="{!v.boooo}">
+                <lightning:spinner alternativeText="Loading" size="small" />
+            </aura:if>
+        </lightning:button>
+        
+    </lightning:buttonGroup>
+    
+    <div aura:id="msg" class="slds-transition-hide" style="display: inline;">
+        <div class="slds-text-color_success" style="display: inline;"> Done!</div>
+    </div>
+</aura:component>

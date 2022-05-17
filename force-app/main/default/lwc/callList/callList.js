@@ -4,6 +4,7 @@ import { updateRecord } from 'lightning/uiRecordApi';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import ID_FIELD from '@salesforce/schema/Contact.Id';
 import ADDED_TO_CALL_LIST from '@salesforce/schema/Contact.Added_to_Call_List__c';
+import { NavigationMixin} from "lightning/navigation";
 
 /* const columns = [
     { label: 'Name', fieldName: 'name', editable: true },
@@ -14,24 +15,27 @@ import ADDED_TO_CALL_LIST from '@salesforce/schema/Contact.Added_to_Call_List__c
     { label: 'Add to Call List', fieldName: 'Add to Call List', type: 'checkbox', editable: true},
 ]; */
 
-export default class CallList extends LightningElement {
+export default class CallList extends NavigationMixin(LightningElement) {
 
-<<<<<<< HEAD
-    columns = new Map();
-    //columns.set('Account',['Name','Org Name','email','phone','Add to list']);
-    headers =['Name','Organization','Email','Phone'];
-    records;
-=======
     value = 'Contact';
-    headers =['Name','Organization','Email','Phone'];
+    headers = ['Name', 'Organization', 'Email', 'Phone'];
     @track records;
->>>>>>> master
     sortedColumn;
     sortedDirection = 'asc';
     initialRecords;
     accountSelect = true;
 
-    addToList(event){
+    navigate() {
+        this[NavigationMixin.Navigate]({
+            type: "standard__recordPage",
+            attributes: {
+                actionName: "view",
+                recordId: "0015g000003XAX1AAO"
+            }
+        });
+    }
+
+    addToList(event) {
         const fields = {};
         console.log(event.target.id.split('-')[0]);
         // const fields = { 'recordid' : event.target.id.split('-')[0], 'Added_to_Call_List__c' : true };
@@ -40,23 +44,23 @@ export default class CallList extends LightningElement {
         fields[ADDED_TO_CALL_LIST.fieldApiName] = true;
 
         const recordInput = { fields };
-        updateRecord( recordInput )
-            .then( () => {
+        updateRecord(recordInput)
+            .then(() => {
                 this.dispatchEvent(
                     new ShowToastEvent({
-                        title : 'Success!! Added to call list',
-                        message : 'updated',
-                        variant : 'success'
+                        title: 'Success!! Added to call list',
+                        message: 'updated',
+                        variant: 'success'
                     })
                 );
             })
-            .catch( error => {
+            .catch(error => {
                 console.log(JSON.stringify(error.body));
                 this.dispatchEvent(
                     new ShowToastEvent({
-                        title : 'Error ',
-                        message : error.body.message,
-                        variant : 'error'
+                        title: 'Error ',
+                        message: error.body.message,
+                        variant: 'error'
                     })
                 );
             });
@@ -64,29 +68,29 @@ export default class CallList extends LightningElement {
 
     }
 
-    @wire( fetchAccounts )  
-    wiredAccount( { error, data } ) {
+    @wire(fetchAccounts)
+    wiredAccount({ error, data }) {
         if (data) {
 
             this.records = data;
             this.initialRecords = data;
             this.error = undefined;
 
-        } else if ( error ) {
+        } else if (error) {
 
             this.error = error;
             this.initialRecords = undefined;
             this.records = undefined;
 
         }
-    }  
+    }
 
-    sortRecs( event ) {
+    sortRecs(event) {
 
         let colName = event.target.name;
-        console.log( 'Column Name is ' + colName );
-        if ( this.sortedColumn === colName ) {
-            this.sortedDirection = ( this.sortedDirection === 'asc' ? 'desc' : 'asc' );
+        console.log('Column Name is ' + colName);
+        if (this.sortedColumn === colName) {
+            this.sortedDirection = (this.sortedDirection === 'asc' ? 'desc' : 'asc');
         }
         else {
             this.sortedDirection = 'asc';
@@ -97,61 +101,61 @@ export default class CallList extends LightningElement {
         this.sortedColumn = colName;
 
         // sort the data
-        this.records = JSON.parse( JSON.stringify( this.records ) ).sort( ( a, b ) => {
-            a = a[ colName ] ? a[ colName ].toLowerCase() : ''; // Handle null values
-            b = b[ colName ] ? b[ colName ].toLowerCase() : '';
+        this.records = JSON.parse(JSON.stringify(this.records)).sort((a, b) => {
+            a = a[colName] ? a[colName].toLowerCase() : ''; // Handle null values
+            b = b[colName] ? b[colName].toLowerCase() : '';
             return a > b ? 1 * isReverse : -1 * isReverse;
         });;
 
     }
 
-    handleKeyChange( event ) {  
-          
-        const searchKey = event.target.value.toLowerCase();  
-        console.log( `Search Key is  + ${searchKey}` );
-        if ( searchKey ) {  
+    handleKeyChange(event) {
+
+        const searchKey = event.target.value.toLowerCase();
+        console.log(`Search Key is  + ${searchKey}`);
+        if (searchKey) {
 
             this.records = this.initialRecords;
- 
-             if ( this.records ) {
+
+            if (this.records) {
 
                 let recs = [];
-                for ( let rec of this.records ) {
-                    console.log( 'Rec is ' + rec );
-                    console.log( 'Rec is ' + JSON.stringify( rec ) );
-                    let valuesArray = Object.values( rec );
-                    console.log( 'valuesArray is ' + valuesArray );
- 
-                    for ( let val of valuesArray ) {
-                        if( val == '[object Object]' ){
+                for (let rec of this.records) {
+                    console.log('Rec is ' + rec);
+                    console.log('Rec is ' + JSON.stringify(rec));
+                    let valuesArray = Object.values(rec);
+                    console.log('valuesArray is ' + valuesArray);
+
+                    for (let val of valuesArray) {
+                        if (val == '[object Object]') {
                             val = JSON.stringify(val);
                         }
-                        if ( val ) {
-                            if ( val.toLowerCase().includes( searchKey ) ) {
+                        if (val) {
+                            if (val.toLowerCase().includes(searchKey)) {
 
-                                recs.push( rec );
+                                recs.push(rec);
                                 break;
-                        
+
                             }
 
                         }
 
                     }
-                    
+
                 }
 
-                console.log( 'Recs are tested ' + JSON.stringify( recs ) );
+                console.log('Recs are ' + JSON.stringify(recs));
                 this.records = recs;
 
-             }
- 
-        }  else {
+            }
+
+        } else {
 
             this.records = this.initialRecords;
 
         }
- 
-    }  
+
+    }
 
     data = [];
     //columns = columns;
@@ -165,31 +169,17 @@ export default class CallList extends LightningElement {
         ];
     }
 
-    handleChange( event ) {
+    handleChange(event) {
         this.value = event.detail.value;
-<<<<<<< HEAD
-        if(this.value === 'Account'){
-            this.headers = ['Organization Name','Email','Phone'];
+
+        if (this.value === 'Account') {
+            this.headers = ['Organization Name', 'Email', 'Phone'];
             console.log(this.value);
-            //fetchAccounts;
-        }
-    }
-}
-
-
-
-// export class DatatableWithInlineEdit extends LightningElement {
-=======
->>>>>>> master
-
-        if( this.value === 'Account' ){
-            this.headers = ['Organization Name','Email','Phone'];
-            console.log( this.value );
             this.accountSelect = false;
         }
-        else{
+        else {
             this.accountSelect = true;
-            this.headers =['Name','Organization','Email','Phone'];
+            this.headers = ['Name', 'Organization', 'Email', 'Phone'];
         }
     }
 }
